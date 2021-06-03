@@ -87,3 +87,19 @@ describe("Testing GitCommand.add()", function(){
         expect(output_status).to.equal('You have 1 change/s.\n.github/workflows/actions.yml');
     });
 })
+
+describe("Testing GitCommand.commit()", function(){
+    it("Should return 'Done committing to local repository.' when successful.", function(){
+        let wd = new WorkingDirectory();
+        wd.addFile("index.html", "views", "<html>Hello</html>");
+        wd.addFile("index.js", "assets/scripts", "alert('Hi!')");
+
+        let git = new GitCommand(wd);
+        git.init();
+        git.add(".");
+
+        let output = git.commit('First Commit');
+
+        expect(output).to.equal('Done committing to local repository.');
+    })
+})
